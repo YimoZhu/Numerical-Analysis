@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage[table]{xcolor}
+\linespread{1.2}
+
+\usepackage{listings}
+\begin{document}
+    \title{Math 128A Programming Assignment 3}
+    \author{\textsc{YIMO ZHU}}
+    \date{\today}
+    \maketitle
+    %生成标题
+\section{Question \#1}
+In this question we will write a a function to output the unit Legendre Polynomials' evaluation, which each of them has a unit inner product with itself, over the designated m points. Under each designated point x, the way to recover the evaluations of polynomials up to degree n can be done by the following recursive system:
+\[
+\sqrt{b_{1}}\phi_{1}(x) = (x-a_0)\phi_0(x)\]
+\[
+\sqrt{b_{n+1}}\phi_{n+1}(x) = (x-a_n)\phi_n(x) - \sqrt{b_n}\phi_{n-1}(x)
+\]
+Where the coefficients $\{a_n\}$ and $\{b_n\}$ are usually specified at $a_n = 0$ and $b_n = \frac{n^2}{4n^2-1}$.\\
+What I did in the program is to first check the input a and b. Their length has to differ by exactly one. After doing that, first we generate the output matrix, with size $(n+1,m)$, we temporarily use 0 to fill all the positions.\\
+Then we start the main loop, in each loop we fix the evaluation point. And generate a one dimensional vector to store the polynomials' evaluation at this specific point. Then we use the recursive system to fill all the position in the one dimensional vector. After this is done, we put the one dimensional vector into the proper place in the output matrix.\\
+Hence, by iterating through all of the evaluation points, we can construct the output matrix PHI. \\
+The two graph, which visualizing $\phi_{10}$ and $\phi_{50}$ over the interval $[-1,1]$, are included below.
+\begin{figure}[!ht]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.5]{Q1Case10.png}
+\end{figure}
+\begin{figure}[!ht]+
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.5]{Q1Case50.png}\\
+\end{figure}
+
+
+\section{Question \#2}
+\end{document}

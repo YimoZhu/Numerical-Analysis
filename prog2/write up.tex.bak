@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+\usepackage{graphicx}
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            %
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+\begin{document}
+\section{Question 1}
+~~~~The question is to write a function, where we provide :~ 1.The interpolation points-values pairs~2.The evaluation points. Then the function can return the vector containing the values that the interpolation polynomial take at the evaluation points.\\
+\indent For interpolation, we use Lagrange Interpolation. To construct the polynomial verbally, we need to observe the structure. Lagrange polynomial is nothing but a linear combination of n polynomials. So we can use a double iteration to construct it.\\
+\indent For the external interpolation, we use $j$ to track the number of the element polynomial that we are at. At each stage, we fix the external iteration cursor $j$, and construct the corresponding element polynomial using a internal iteration. Using a subscript $k$ to iterate through all of the input points except $j$, we calculate the cumulative product $\prod$
+\end{document}
