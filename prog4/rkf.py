@@ -18,13 +18,14 @@ def rkf(f,a,b,y0,h,hmin,hmax,tol):
     
     s = len(b1)
     d = len(y0)
-    kk = zeros(d,s)
+    kk = zeros((d,s))
     
     nmax = 10000
     for n in range(1,nmax+1):
-        for i in arange(1,s+1):
+        for i in arange(s):
             z = array(y0)
-            for j in arange(1,i):
+            for j in arange(i):
+                #Compute the stage derivatives
                 z = z+h*A[i,j]*kk[:,j]
             kk[:,i] = f(z)
 
@@ -52,5 +53,6 @@ def rkf(f,a,b,y0,h,hmin,hmax,tol):
     if n >= nmax:
         print("error: nmax reached %s"%s)
     
+    print("[RKF] Iteration ended at loop # %s"%n)
     return (array(t),array(y).T)
         

@@ -1,7 +1,7 @@
 from numpy import *
 from newton import newton
 
-def rkf(f,J,a,b,y0,h,hmin,hmax,tol):
+def sdirk(f,J,a,b,y0,h,hmin,hmax,tol):
     t=[a]
     y = [y0]
     h = min(h,b-a)
@@ -18,19 +18,19 @@ def rkf(f,J,a,b,y0,h,hmin,hmax,tol):
     
     s = len(b1)
     d = len(y0)
-    kk = zeros(d,s)
+    kk = zeros((d,s))
     
     nmax = 10000
     for n in range(1,nmax+1):
-        for i in arange(1,s+1):
+        for i in arange(s):
+            #Calculate the stage derivative.
             z = array(y0)
-            for j in arange(1,i):
+            for j in arange(i):
                 z = z+h*A[i,j]*kk[:,j]
-
             ah = h*A[i,i]
-            g = @(k) ???;  % you figure out what goes here (involves f)
-            dg = @(k) ???; % and here.. (involves J)
-            kk(:,i) = newton(g,dg,f(y0),1.0e-12)
+            g = lambda k:k-f(z+ah*k)
+            dg = lambda k:eye(d)-J(z+ah*k)*ah
+            kk[:,i] = newton(g,dg,f(y0),1.0e-12)[0]
 
         R = linalg.norm(kk.dot(er))
 
@@ -56,5 +56,6 @@ def rkf(f,J,a,b,y0,h,hmin,hmax,tol):
     if n >= nmax:
         print("error: nmax reached %s"%s)
     
+    print("[SDIRK] Iteration ended at loop # %s"%n)
     return (array(t),array(y).T)
         
