@@ -41,7 +41,7 @@ def rungeKutta4(f,initial,a,b,N,mode="scaler"):
         d = len(initial)
         h = (b-a)/N
         t = np.linspace(a,b,N+1)
-        w = np.empty(N+1,d)
+        w = np.empty((N+1,d))
         w[0,:] = initial
         for j in np.arange(N):
             k1 = f(t[j] , w[j,:])
@@ -49,5 +49,20 @@ def rungeKutta4(f,initial,a,b,N,mode="scaler"):
             k3 = f(t[j]+0.5*h , w[j,:]+0.5*h*k2)
             k4 = f(t[j]+h , w[j,:]+h*k3)
             w[j+1,:] = w[j,:] + h/6 * (k1 + 2*k2 + 2*k3 + k4)
-            __output("Step numer %s, result %s"%(j+1,w[j+1,:]))
-        __plot(t,w,grid=True)
+            __output("Step # %s, result %s"%(j+1,w[j+1,:]))
+        return w
+
+def euler(f,initial,a,b,N,mode="scaler"):
+    #Euler's method
+    #The specification of input parameters are much the same as rungeKutta4
+    if mode == "scaler":
+        h = (b-a)/N
+        t = np.linspace(a,b,N+1)
+        w = np.empty(N+1)
+        w[0] = initial
+        for j in np.range(N):
+            w[j+1] = w[j] + h*f(t[j],w[j])
+            __output("Step # %s, result %s"%(j+1,w[j+1]))
+        return w
+    elif mode == "vector":
+        pass
