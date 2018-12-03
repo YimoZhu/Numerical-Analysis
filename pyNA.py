@@ -1,7 +1,7 @@
 __version__ = "1.0"
 __author__ = "Yimo Zhu"
 docker = "A package for numerical analysis algorithms. As some algorithms put in some big packages are hard to find, \
-          this one is specific and some enough for some daily use."
+          this one is specific and for some daily use."
 
 import numpy as np
 from numpy import linalg
